@@ -2,9 +2,11 @@ require 'highline/import'
 
 Capistrano::Configuration.instance(true).load do
   set :database_name, nil
-  set :database_user, Proc.new { Highline.ask("What is your database username?  ") { |q| q.default = "dbuser" } }
-  set :database_pass, Proc.new { Highline.ask("What is your database password?  ") { |q| q.echo = "*" } }
+  set :database_user, Proc.new { ask("What is your database username?  ") { |q| q.default = "dbuser" } }
+  set :database_pass, Proc.new { ask("What is your database password?  ") { |q| q.echo = "*" } }
   
+  puts database_user
+  puts database_pass
   namespace :database do
     task :configure do
       db_config =<<EOF
